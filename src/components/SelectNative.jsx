@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SelectNative({ options, onChange }) {
+function SelectNative({ options, className, id, onChange }) {
   const handleChange = event => {
     const result = {
       value: event.target.value,
@@ -13,9 +13,9 @@ function SelectNative({ options, onChange }) {
 
   return (
     <select
-      className="form-select-native"
-      name="roleList"
-      id="roleList"
+      className={className}
+      name={id}
+      id={id}
       required
       defaultValue={options[0].value}
       onChange={handleChange}
@@ -31,7 +31,14 @@ function SelectNative({ options, onChange }) {
 
 SelectNative.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  className: PropTypes.string,
+  id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+};
+
+SelectNative.defaultProps = {
+  className: '',
+  id: '',
 };
 
 export default SelectNative;

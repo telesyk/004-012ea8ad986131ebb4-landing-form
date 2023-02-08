@@ -7,7 +7,6 @@ import SelectNative from './components/SelectNative';
 import logotype from './assets/logotype.svg';
 
 const OPTIONS = [
-  { value: '', label: 'Role' },
   { value: 'full-stack developer', label: 'Full-stack developer' },
   { value: 'front-end developer', label: 'Front-end developer' },
   { value: 'back-end developer', label: 'Back-end developer' },
@@ -26,6 +25,7 @@ const CAPTIONS = {
       'The human-first, 100% no-code API for fully managed backend services 😻',
     topText: 'Get on our updates list',
     successResponse: 'Done. You can unsubscribe any time via the email.',
+    submitText: 'Notify me',
   },
   placeholder: {
     select: 'Role',
@@ -96,6 +96,8 @@ function App() {
                       <div className="form-control-panel form-select-native__container">
                         <SelectNative
                           options={OPTIONS}
+                          className="form-select-native"
+                          id="roleList"
                           onChange={handleSelectChange}
                         />
                       </div>
@@ -146,7 +148,7 @@ function App() {
                     type="submit"
                     onClick={handleFormSubmit}
                   >
-                    Notify me
+                    {CAPTIONS.form.submitText}
                   </button>
                 </div>
               </form>
