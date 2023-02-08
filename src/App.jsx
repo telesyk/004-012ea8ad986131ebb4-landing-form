@@ -35,8 +35,8 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app-container">
-        <div className="app-top">
+      <div className="app-top">
+        <div className="app-container">
           <div className="app-logotype">
             <img src={CAPTIONS.logo.src} alt={CAPTIONS.logo.text} />
           </div>
@@ -44,35 +44,38 @@ function App() {
           <form action="" className="app-form form">
             <p className="form-text-top">{CAPTIONS.form.topText}</p>
             <div className="form-main">
-              <div className="form-control-panel">
-                <select
-                  className="form-selector"
-                  name="roleList"
-                  id="roleList"
-                  required
-                >
-                  {OPTIONS.map(({ value, label }) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-control-panel">
-                <Select
-                  className="form-selector"
-                  defaultValue={selectedOption}
-                  onChange={setSelectedOption}
-                  options={OPTIONS}
-                />
-              </div>
-              <div className="form-control-panel">
-                <input
-                  className="form-control"
-                  type="email"
-                  placeholder="Email"
-                  required
-                />
+              <div className="form-controls">
+                <div className="form-control-panel">
+                  <select
+                    className="form-select-native"
+                    name="roleList"
+                    id="roleList"
+                    required
+                  >
+                    {OPTIONS.map(({ value, label }) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-control-panel">
+                  <Select
+                    className="form-select"
+                    classNamePrefix="form-select"
+                    defaultValue={selectedOption}
+                    onChange={setSelectedOption}
+                    options={OPTIONS}
+                  />
+                </div>
+                <div className="form-control-panel">
+                  <input
+                    className="form-control"
+                    type="email"
+                    placeholder="Email"
+                    required
+                  />
+                </div>
               </div>
               <p className="form-text-bottom">
                 This form is protected by reCAPTCHA, and the Google{' '}

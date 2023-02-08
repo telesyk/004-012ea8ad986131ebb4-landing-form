@@ -3,10 +3,14 @@
   --color-black: #000000;
   --color-bg-primary: #fbff21;
   --color-bg-secondary: #222222;
+  --color-text-active: var(--color-bg-secondary);
   --color-text-secondary: #666666;
-  --color-border-button: #333333;
-  --color-border-control: #e1e1e1;
-  --color-border-control-focus: #222222;
+  --color-control-border: #e1e1e1;
+  --color-control-border-focus: var(--color-bg-secondary);
+
+  --font-family-roboto: 'Roboto Mono', monospace;
+
+  --transition-default: all 150ms ease;
 
   --app-container-padding: 40px 24px 0;
 
@@ -18,21 +22,39 @@
 
   --app-bottom-copyrights-margin-top: 125px;
   --app-bottom-container-padding-bottom: 29px;
+  --app-bottom-description-width: auto;
 
   --form-main-direction: column;
   --form-main-justify: initial;
 
+  --form-controls-order: initial;
+  --form-controls-flex: 1 1 100%;
+
   --form-control-height: 65px;
   --form-control-gap: 16px;
-  --form-control-padding: 20px 11px;
+  --form-control-padding-x: 11px;
+  --form-control-padding-y: 11px;
+  --form-control-padding: var(--form-control-padding-y) 0
+    var(--form-control-padding-y) var(--form-control-padding-x);
+
+  --form-select-font-size: 20px;
+  --form-select-line-height: 20px;
 
   --form-submit-width: 138.45px;
   --form-submit-height: var(--form-control-height);
+  --form-submit-margin-y: initial;
+  --form-submit-border-color: #333333;
+  --form-submit-bg-color: var(--color-bg-secondary);
   --form-submit-font-size: 18px;
   --form-submit-line-height: 24px;
   --form-submit-align-self: end;
+  --form-submit-order: initial;
+
+  --form-text-top-font-size: 16px;
+  --form-text-top-line-height: 32px;
 
   --form-text-bottom-flex: initial;
+  --form-text-bottom-order: initial;
 
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -40,7 +62,7 @@
   font-style: normal;
 
   color: var(--color-black);
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-secondary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -56,24 +78,10 @@
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* App Layout */
 .app {
   width: 100vw;
   min-height: 100vh;
@@ -86,11 +94,12 @@ button:focus-visible {
 
 .app-top {
   padding-bottom: var(--app-top-padding-y);
+  background-color: var(--color-bg-primary);
 }
 
 .app-top-description {
   margin: var(--app-description-margin);
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-roboto);
   font-size: var(--app-description-font-size);
   line-height: var(--app-description-line-height);
 }
@@ -106,6 +115,7 @@ button:focus-visible {
 }
 
 .app-bottom-description {
+  width: var(--app-bottom-description-width);
   font-size: 18px;
   line-height: 29px;
 }
@@ -121,12 +131,25 @@ button:focus-visible {
   line-height: 28px;
 }
 
+/* Form elements */
 .form-text-top {
   margin-bottom: var(--form-control-gap);
+  font-size: var(--form-text-top-font-size);
+  line-height: var(--form-text-top-line-height);
 }
 
 .form-text-bottom {
   flex: var(--form-text-bottom-flex);
+  order: var(--form-text-bottom-order);
+}
+
+.form-text-bottom,
+.form-text-bottom a {
+  color: var(--color-text-secondary);
+  font-family: 'Inter';
+  font-weight: 400;
+  line-height: 12px;
+  line-height: 140%;
 }
 
 .form-main {
@@ -137,39 +160,119 @@ button:focus-visible {
   gap: var(--form-control-gap);
 }
 
-.form-control-panel {
-  width: 100%;
+.form-controls {
+  order: var(--form-controls-order);
+  flex: var(--form-controls-flex);
 }
 
-.form-selector,
-.form-control {
+.form-control-panel {
+  width: 100%;
+  margin-bottom: var(--form-control-gap);
+}
+
+/* Form controls & selector */
+.form .form-control,
+.form .form-select-native,
+.form .form-select__control {
   width: 100%;
   height: var(--form-control-height);
   padding: var(--form-control-padding);
   background-color: var(--color-white);
-  border: 2px solid var(--color-border-control);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--color-control-border);
   border-radius: 8px;
+  font-family: var(--font-family-roboto);
+  font-weight: 400;
+  font-size: var(--form-select-font-size);
+  line-height: var(--form-select-line-height);
+  transition: var(--transition-default);
 }
+
+.form .form-control:focus,
+.form .form-select-native:focus,
+.form .form-select__control:focus,
+.form .form-select__control.form-select__control--is-focused,
+.form .form-control:hover,
+.form .form-select-native:hover,
+.form .form-select__control:hover {
+  border-color: var(--color-control-border-focus);
+  outline: none;
+  box-shadow: none;
+}
+
+.form .form-select__indicator-separator {
+  background-color: var(--color-control-border);
+  transition: var(--transition-default);
+}
+
+.form
+  .form-select__control.form-select__control--is-focused
+  .form-select__indicator-separator,
+.form .form-select__control:focus .form-select__indicator-separator,
+.form .form-select__control:hover .form-select__indicator-separator {
+  background-color: var(--color-control-border-focus);
+}
+
+/* fix 'react-seletc' component styles */
+.form .form-select__value-container,
+.form .form-select__placeholder,
+.form .form-select__indicator-separator,
+.form .form-select__indicator {
+  transition: var(--transition-default);
+}
+.form .form-select__value-container,
+.form .form-select__placeholder,
+.form .form-select__indicator-separator {
+  margin: 0;
+  padding: 0;
+}
+.form .form-select__indicator {
+  padding-left: var(--form-control-padding-x);
+  padding-right: var(--form-control-padding-x);
+  color: var(--color-control-border-focus);
+}
+.form .form-select__indicator:hover {
+  color: inherit;
+}
+.form .form-select__menu {
+  padding: 27px 17px;
+  border-color: var(--color-control-border-focus);
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: none;
+}
+.form .form-select__option {
+  color: var(--color-text-active);
+  font-family: var(--font-family-roboto);
+}
+.form .form-select__option:hover,
+.form .form-select__option--is-focused {
+  background-color: var(--color-bg-primary);
+}
+/* End of fix */
 
 .form-submit {
   width: var(--form-submit-width);
   height: var(--form-submit-height);
+  margin-bottom: var(--form-submit-margin-y);
   align-self: var(--form-submit-align-self);
+  order: var(--form-submit-order);
   border-radius: 50px;
+  border: 2px solid var(--form-submit-border-color);
+  background-color: var(--form-submit-bg-color);
+  color: var(--color-white);
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-size: var(--form-submit-font-size);
   line-height: var(--form-submit-line-height);
-  color: var(--color-white);
+  transition: var(--transition-default);
 }
 
-.form-text-bottom,
-.form-text-bottom a {
-  color: var(--color-text-secondary);
-  font-family: 'Inter';
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 140%;
+.form-submit:hover,
+.form-submit:focus {
+  --form-submit-bg-color: var(--color-white);
+  color: var(--color-text-active);
 }
 
 @media screen and (min-width: 744px) {
@@ -190,18 +293,27 @@ button:focus-visible {
 
     --form-control-height: 100px;
     --form-control-gap: 20px;
-    --form-control-padding: 28px 35px 26px;
+    --form-control-padding-x: 35px;
+    --form-control-padding-y: 11px;
+
+    --form-select-font-size: 28px;
+    --form-select-line-height: 28px;
 
     --form-submit-width: 213px;
     --form-submit-font-size: 24px;
     --form-submit-line-height: 32px;
 
     --form-text-bottom-flex: 0 1 45%;
+
+    --form-text-top-font-size: 20px;
+    --form-text-top-line-height: 40px;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1140px) {
   :root {
+    --app-bottom-description-width: 904px;
+
     --app-top-padding-y: 50px;
 
     --app-description-margin: 110px 0 52px;
@@ -210,6 +322,16 @@ button:focus-visible {
 
     --form-main-justify: start;
 
+    --form-controls-order: 1;
+    --form-controls-flex: 0 1 785px;
+
+    --form-submit-order: 2;
+    --form-submit-margin-y: var(--form-control-gap);
+
+    --form-text-bottom-order: 3;
     --form-text-bottom-flex: 1 1 auto;
+
+    --form-text-top-font-size: 24px;
+    --form-text-top-line-height: 48px;
   }
 }
