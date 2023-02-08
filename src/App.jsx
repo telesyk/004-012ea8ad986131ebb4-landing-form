@@ -1,6 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Select from 'react-select';
+import classNames from 'classnames';
+import { isMobile } from 'react-device-detect';
+import SelectNative from './components/SelectNative';
 
 const OPTIONS = [
   { value: 'full-stack developer', label: 'Full-stack developer' },
@@ -20,6 +23,7 @@ const CAPTIONS = {
     description:
       'The human-first, 100% no-code API for fully managed backend services 😻',
     topText: 'Get on our updates list',
+    successResponse: 'Done. You can unsubscribe any time via the email.',
   },
   footer: {
     description1:
@@ -32,6 +36,36 @@ const CAPTIONS = {
 
 function App() {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [emailValue, setEmailValue] = useState('');
+  const [isSuccessResponse, setIsSuccessResponse] = useState(null);
+
+  const checkValidation = data => {
+    /**
+     * Check data for validation
+     *
+     * write [code] here
+     *
+     * return Boolean
+     */
+  };
+
+  const handleFormSubmit = event => {
+    event.preventDefault();
+
+    if (emailValue !== '' && selectedOption) {
+      /**
+       * Send data to server
+       *
+       * add [code] here
+       */
+
+      setIsSuccessResponse(prev => !prev);
+    }
+  };
+
+  const handleEmail = event => {
+    setEmailValue(event.target.value.trim());
+  };
 
   return (
     <div className="app">
@@ -40,67 +74,73 @@ function App() {
           <div className="app-logotype">
             <img src={CAPTIONS.logo.src} alt={CAPTIONS.logo.text} />
           </div>
-          <p className="app-top-description">{CAPTIONS.form.description}</p>
-          <form action="" className="app-form form">
-            <p className="form-text-top">{CAPTIONS.form.topText}</p>
-            <div className="form-main">
-              <div className="form-controls">
-                <div className="form-control-panel">
-                  <select
-                    className="form-select-native"
-                    name="roleList"
-                    id="roleList"
-                    required
+          {!isSuccessResponse ? (
+            <>
+              <p className="app-top-description">{CAPTIONS.form.description}</p>
+              <form onSubmit={handleFormSubmit} className="app-form form">
+                <p className="form-text-top">{CAPTIONS.form.topText}</p>
+                <div className="form-main">
+                  <div className="form-controls">
+                    {isMobile ? (
+                      <div className="form-control-panel">
+                        <SelectNative options={OPTIONS} />
+                      </div>
+                    ) : (
+                      <div className="form-control-panel">
+                        <Select
+                          className="form-select"
+                          classNamePrefix="form-select"
+                          defaultValue={selectedOption}
+                          onChange={setSelectedOption}
+                          options={OPTIONS}
+                        />
+                      </div>
+                    )}
+                    <div className="form-control-panel">
+                      <input
+                        className="form-control"
+                        type="email"
+                        placeholder="Email"
+                        required
+                        onChange={handleEmail}
+                        value={emailValue}
+                      />
+                    </div>
+                  </div>
+                  <p className="form-text-bottom">
+                    This form is protected by reCAPTCHA, and the Google{' '}
+                    <a
+                      href="https://policies.google.com/privacy"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Privacy Policy
+                    </a>{' '}
+                    and{' '}
+                    <a
+                      href="https://policies.google.com/terms"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Terms of Service
+                    </a>{' '}
+                    apply.
+                  </p>
+                  <button
+                    className="form-submit"
+                    type="submit"
+                    onClick={handleFormSubmit}
                   >
-                    {OPTIONS.map(({ value, label }) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </select>
+                    Notify me
+                  </button>
                 </div>
-                <div className="form-control-panel">
-                  <Select
-                    className="form-select"
-                    classNamePrefix="form-select"
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
-                    options={OPTIONS}
-                  />
-                </div>
-                <div className="form-control-panel">
-                  <input
-                    className="form-control"
-                    type="email"
-                    placeholder="Email"
-                    required
-                  />
-                </div>
-              </div>
-              <p className="form-text-bottom">
-                This form is protected by reCAPTCHA, and the Google{' '}
-                <a
-                  href="https://policies.google.com/privacy"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Privacy Policy
-                </a>{' '}
-                and{' '}
-                <a
-                  href="https://policies.google.com/terms"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Terms of Service
-                </a>{' '}
-                apply.
-              </p>
-              <button className="form-submit" type="submit">
-                Notify me
-              </button>
-            </div>
-          </form>
+              </form>
+            </>
+          ) : (
+            <p className={classNames('app-top-description', 'is-success')}>
+              {CAPTIONS.form.successResponse}
+            </p>
+          )}
         </div>
       </div>
       <div className="app-bottom">

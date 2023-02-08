@@ -5,6 +5,7 @@
   --color-bg-secondary: #222222;
   --color-text-active: var(--color-bg-secondary);
   --color-text-secondary: #666666;
+  --color-text-placeholder: #bababa;
   --color-control-border: #e1e1e1;
   --color-control-border-focus: var(--color-bg-secondary);
 
@@ -15,6 +16,7 @@
   --app-container-padding: 40px 24px 0;
 
   --app-description-margin: 52px 0 43px;
+  --app-description-success-margin: 152px 0 143px;
   --app-description-font-size: 28px;
   --app-description-line-height: 36px;
 
@@ -81,6 +83,14 @@ button {
   cursor: pointer;
 }
 
+input::placeholder,
+input::-webkit-input-placeholder,
+input::-moz-placeholder,
+input:-ms-input-placeholder,
+input:-moz-placeholder {
+  color: var(--color-text-placeholder);
+}
+
 /* App Layout */
 .app {
   width: 100vw;
@@ -102,6 +112,10 @@ button {
   font-family: var(--font-family-roboto);
   font-size: var(--app-description-font-size);
   line-height: var(--app-description-line-height);
+}
+
+.app-top-description.is-success {
+  margin: var(--app-description-success-margin);
 }
 
 .app-bottom {
@@ -317,6 +331,7 @@ button {
     --app-top-padding-y: 50px;
 
     --app-description-margin: 110px 0 52px;
+    --app-description-success-margin: 286px 0 195px;
     --app-description-font-size: 54px;
     --app-description-line-height: 70px;
 
