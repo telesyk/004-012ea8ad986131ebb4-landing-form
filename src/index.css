@@ -33,6 +33,7 @@
   --form-controls-flex: 1 1 100%;
 
   --form-control-height: 65px;
+  --form-control-border-width: 2px;
   --form-control-gap: 16px;
   --form-control-padding-x: 11px;
   --form-control-padding-y: 11px;
@@ -40,7 +41,9 @@
     var(--form-control-padding-y) var(--form-control-padding-x);
 
   --form-select-font-size: 20px;
-  --form-select-line-height: 20px;
+  --form-select-line-height: 1.375;
+  --form-select-native-right: 60px;
+  --form-select-native-indicator-color: var(--color-control-border);
 
   --form-submit-width: 138.45px;
   --form-submit-height: var(--form-control-height);
@@ -185,14 +188,14 @@ input:-moz-placeholder {
 }
 
 /* Form controls & selector */
-.form .form-control,
-.form .form-select-native,
+.form-control,
+.form-select-native,
 .form .form-select__control {
   width: 100%;
   height: var(--form-control-height);
   padding: var(--form-control-padding);
   background-color: var(--color-white);
-  border-width: 2px;
+  border-width: var(--form-control-border-width);
   border-style: solid;
   border-color: var(--color-control-border);
   border-radius: 8px;
@@ -203,17 +206,58 @@ input:-moz-placeholder {
   transition: var(--transition-default);
 }
 
-.form .form-control:focus,
-.form .form-select-native:focus,
+.form-control:focus,
+.form-select-native:focus,
 .form .form-select__control:focus,
 .form .form-select__control.form-select__control--is-focused,
-.form .form-control:hover,
-.form .form-select-native:hover,
+.form-control:hover,
+.form-select-native:hover,
 .form .form-select__control:hover {
   border-color: var(--color-control-border-focus);
   outline: none;
   box-shadow: none;
 }
+
+/* Select native */
+.form-select-native {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.form-select-native:hover,
+.form-select-native:focus {
+  --form-select-native-indicator-color: var(--color-control-border-focus);
+}
+
+.form-select-native__container {
+  position: relative;
+}
+
+.form-select-native__container::before {
+  content: '';
+  position: absolute;
+  top: var(--form-control-gap);
+  right: var(--form-select-native-right);
+  width: 2px;
+  height: calc(100% - var(--form-control-gap) * 2);
+  background-color: var(--form-select-native-indicator-color);
+}
+
+.form-select-native__container::after {
+  --indicator-size: 8px;
+
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: calc(var(--form-select-native-right) / 2 - var(--indicator-size) / 2);
+  transform: translateY(-50%) rotate(-45deg);
+  width: var(--indicator-size);
+  height: var(--indicator-size);
+  border-left: var(--form-control-border-width) solid var(--color-bg-secondary);
+  border-bottom: var(--form-control-border-width) solid
+    var(--color-bg-secondary);
+}
+/* End Select native */
 
 .form .form-select__indicator-separator {
   background-color: var(--color-control-border);
@@ -252,7 +296,7 @@ input:-moz-placeholder {
 .form .form-select__menu {
   padding: 27px 17px;
   border-color: var(--color-control-border-focus);
-  border-width: 2px;
+  border-width: var(--form-control-border-width);
   border-style: solid;
   box-shadow: none;
 }
@@ -261,7 +305,8 @@ input:-moz-placeholder {
   font-family: var(--font-family-roboto);
 }
 .form .form-select__option:hover,
-.form .form-select__option--is-focused {
+.form .form-select__option--is-focused,
+.form .form-select__option--is-selected {
   background-color: var(--color-bg-primary);
 }
 /* End of fix */
@@ -273,7 +318,7 @@ input:-moz-placeholder {
   align-self: var(--form-submit-align-self);
   order: var(--form-submit-order);
   border-radius: 50px;
-  border: 2px solid var(--form-submit-border-color);
+  border: var(--form-control-border-width) solid var(--form-submit-border-color);
   background-color: var(--form-submit-bg-color);
   color: var(--color-white);
   font-family: 'Poppins', sans-serif;
@@ -311,7 +356,8 @@ input:-moz-placeholder {
     --form-control-padding-y: 11px;
 
     --form-select-font-size: 28px;
-    --form-select-line-height: 28px;
+    --form-select-line-height: 1.75;
+    --form-select-native-right: 95px;
 
     --form-submit-width: 213px;
     --form-submit-font-size: 24px;

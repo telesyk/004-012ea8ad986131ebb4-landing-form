@@ -4,8 +4,10 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { isMobile } from 'react-device-detect';
 import SelectNative from './components/SelectNative';
+import logotype from './assets/logotype.svg';
 
 const OPTIONS = [
+  { value: '', label: 'Role' },
   { value: 'full-stack developer', label: 'Full-stack developer' },
   { value: 'front-end developer', label: 'Front-end developer' },
   { value: 'back-end developer', label: 'Back-end developer' },
@@ -24,6 +26,10 @@ const CAPTIONS = {
       'The human-first, 100% no-code API for fully managed backend services 😻',
     topText: 'Get on our updates list',
     successResponse: 'Done. You can unsubscribe any time via the email.',
+  },
+  placeholder: {
+    select: 'Role',
+    email: 'Email',
   },
   footer: {
     description1:
@@ -72,7 +78,7 @@ function App() {
       <div className="app-top">
         <div className="app-container">
           <div className="app-logotype">
-            <img src={CAPTIONS.logo.src} alt={CAPTIONS.logo.text} />
+            <img src={logotype} alt={CAPTIONS.logo.text} />
           </div>
           {!isSuccessResponse ? (
             <>
@@ -82,7 +88,7 @@ function App() {
                 <div className="form-main">
                   <div className="form-controls">
                     {isMobile ? (
-                      <div className="form-control-panel">
+                      <div className="form-control-panel form-select-native__container">
                         <SelectNative options={OPTIONS} />
                       </div>
                     ) : (
@@ -90,6 +96,7 @@ function App() {
                         <Select
                           className="form-select"
                           classNamePrefix="form-select"
+                          placeholder={CAPTIONS.placeholder.select}
                           defaultValue={selectedOption}
                           onChange={setSelectedOption}
                           options={OPTIONS}
@@ -100,7 +107,7 @@ function App() {
                       <input
                         className="form-control"
                         type="email"
-                        placeholder="Email"
+                        placeholder={CAPTIONS.placeholder.email}
                         required
                         onChange={handleEmail}
                         value={emailValue}
