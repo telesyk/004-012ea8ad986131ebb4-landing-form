@@ -45,13 +45,14 @@ function App() {
   const [emailValue, setEmailValue] = useState('');
   const [isSuccessResponse, setIsSuccessResponse] = useState(null);
 
+  // eslint-disable-next-line no-unused-vars
   const checkValidation = data => {
     /**
      * Check data for validation
      *
-     * write [code] here
-     *
      * return Boolean
+     *
+     * write [code] here
      */
   };
 
@@ -73,6 +74,10 @@ function App() {
     setEmailValue(event.target.value.trim());
   };
 
+  const handleSelectChange = option => {
+    setSelectedOption(option);
+  };
+
   return (
     <div className="app">
       <div className="app-top">
@@ -89,7 +94,10 @@ function App() {
                   <div className="form-controls">
                     {isMobile ? (
                       <div className="form-control-panel form-select-native__container">
-                        <SelectNative options={OPTIONS} />
+                        <SelectNative
+                          options={OPTIONS}
+                          onChange={handleSelectChange}
+                        />
                       </div>
                     ) : (
                       <div className="form-control-panel">
@@ -98,7 +106,7 @@ function App() {
                           classNamePrefix="form-select"
                           placeholder={CAPTIONS.placeholder.select}
                           defaultValue={selectedOption}
-                          onChange={setSelectedOption}
+                          onChange={handleSelectChange}
                           options={OPTIONS}
                         />
                       </div>
