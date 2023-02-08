@@ -1,37 +1,80 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Select from 'react-select';
+
+const OPTIONS = [
+  { value: 'full-stack developer', label: 'Full-stack developer' },
+  { value: 'front-end developer', label: 'Front-end developer' },
+  { value: 'back-end developer', label: 'Back-end developer' },
+  { value: 'design role', label: 'Design role' },
+  { value: 'product role', label: 'Product role' },
+  { value: 'other', label: 'Other' },
+];
+
+const CAPTIONS = {
+  logo: {
+    src: '/src/assets/logotype.svg',
+    text: 'websote logotype',
+  },
+  form: {
+    description:
+      'The human-first, 100% no-code API for fully managed backend services 😻',
+    topText: 'Get on our updates list',
+  },
+  footer: {
+    description1:
+      'We are working to simplify building premium web, mobile and IoT apps by taking the geek speak and maintenance out of the backend services required to deliver smart and engaging applications.',
+    description2:
+      'By the way, this page is powered by our solution. If you are interested in a demo or would like to have a chat drop us a line at demo at includecore.com.',
+    copyrights: '© 2023 IncludeCore. All rights reserved.',
+  },
+};
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   return (
     <div className="app">
       <div className="app-container">
         <div className="app-top">
           <div className="app-logotype">
-            <img src="/src/assets/react.svg" alt="websote logotype" />
+            <img src={CAPTIONS.logo.src} alt={CAPTIONS.logo.text} />
           </div>
-          <div className="app-top-description">
-            <p>
-              The human-first, 100% no-code API for fully managed backend
-              services 😻
-            </p>
-          </div>
-          <form action="" className="app-form">
-            <p className="app-form-top">Get on our updates list</p>
-            <div className="app-form-fields">
-              <select name="roleList" id="roleList" required>
-                <option value="role">Role</option>
-                <option value="Front end developer">Front end developer</option>
-                <option value="Back end developer">Back end developer</option>
-                <option value="Other">Other</option>
-              </select>
-              <input type="email" placeholder="Email" required />
-              <button type="submit" onClick={() => setCount(prev => prev + 1)}>
-                Notify me {count}
-              </button>
-            </div>
-            <p className="app-form-bottom">
-              <small>
+          <p className="app-top-description">{CAPTIONS.form.description}</p>
+          <form action="" className="app-form form">
+            <p className="form-text-top">{CAPTIONS.form.topText}</p>
+            <div className="form-main">
+              <div className="form-control-panel">
+                <select
+                  className="form-selector"
+                  name="roleList"
+                  id="roleList"
+                  required
+                >
+                  {OPTIONS.map(({ value, label }) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-control-panel">
+                <Select
+                  className="form-selector"
+                  defaultValue={selectedOption}
+                  onChange={setSelectedOption}
+                  options={OPTIONS}
+                />
+              </div>
+              <div className="form-control-panel">
+                <input
+                  className="form-control"
+                  type="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <p className="form-text-bottom">
                 This form is protected by reCAPTCHA, and the Google{' '}
                 <a
                   href="https://policies.google.com/privacy"
@@ -49,25 +92,22 @@ function App() {
                   Terms of Service
                 </a>{' '}
                 apply.
-              </small>
-            </p>
+              </p>
+              <button className="form-submit" type="submit">
+                Notify me
+              </button>
+            </div>
           </form>
         </div>
-        <div className="app-bottom">
+      </div>
+      <div className="app-bottom">
+        <div className="app-container">
           <div className="app-bottom-description">
-            <p>
-              We are working to simplify building premium web, mobile and IoT
-              apps by taking the geek speak and maintenance out of the backend
-              services required to deliver smart and engaging applications.
-            </p>
-            <p>
-              By the way, this page is powered by our solution. If you are
-              interested in a demo or would like to have a chat drop us a line
-              at demo at includecore.com.
-            </p>
+            <p>{CAPTIONS.footer.description1}</p>
+            <p>{CAPTIONS.footer.description2}</p>
           </div>
           <div className="app-bottom-copyrights">
-            <p>© 2023 IncludeCore. All rights reserved.</p>
+            <p>{CAPTIONS.footer.copyrights}</p>
           </div>
         </div>
       </div>

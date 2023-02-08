@@ -1,11 +1,46 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-bg-primary: #fbff21;
+  --color-bg-secondary: #222222;
+  --color-text-secondary: #666666;
+  --color-border-button: #333333;
+  --color-border-control: #e1e1e1;
+  --color-border-control-focus: #222222;
+
+  --app-container-padding: 40px 24px 0;
+
+  --app-description-margin: 52px 0 43px;
+  --app-description-font-size: 28px;
+  --app-description-line-height: 36px;
+
+  --app-top-padding-y: 29px;
+
+  --app-bottom-copyrights-margin-top: 125px;
+  --app-bottom-container-padding-bottom: 29px;
+
+  --form-main-direction: column;
+  --form-main-justify: initial;
+
+  --form-control-height: 65px;
+  --form-control-gap: 16px;
+  --form-control-padding: 20px 11px;
+
+  --form-submit-width: 138.45px;
+  --form-submit-height: var(--form-control-height);
+  --form-submit-font-size: 18px;
+  --form-submit-line-height: 24px;
+  --form-submit-align-self: end;
+
+  --form-text-bottom-flex: initial;
+
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-style: normal;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-black);
+  background-color: var(--color-bg-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,22 +49,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+* {
   margin: 0;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 button {
@@ -51,16 +74,142 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-#root {
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+.app {
+  width: 100vw;
   min-height: 100vh;
 }
 
-.app {
-  max-width: 1280px;
+.app-container {
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: var(--app-container-padding);
+}
+
+.app-top {
+  padding-bottom: var(--app-top-padding-y);
+}
+
+.app-top-description {
+  margin: var(--app-description-margin);
+  font-family: 'Roboto Mono', monospace;
+  font-size: var(--app-description-font-size);
+  line-height: var(--app-description-line-height);
+}
+
+.app-bottom {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-white);
+  font-weight: 500;
+}
+
+.app-bottom .app-container {
+  padding-bottom: var(--app-bottom-container-padding-bottom);
+}
+
+.app-bottom-description {
+  font-size: 18px;
+  line-height: 29px;
+}
+
+.app-bottom-description p {
+  margin-bottom: 44px;
+}
+
+.app-bottom-copyrights {
+  margin-top: var(--app-bottom-copyrights-margin-top);
+  text-align: right;
+  font-size: 14px;
+  line-height: 28px;
+}
+
+.form-text-top {
+  margin-bottom: var(--form-control-gap);
+}
+
+.form-text-bottom {
+  flex: var(--form-text-bottom-flex);
+}
+
+.form-main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: var(--form-main-direction);
+  justify-content: var(--form-main-justify);
+  gap: var(--form-control-gap);
+}
+
+.form-control-panel {
+  width: 100%;
+}
+
+.form-selector,
+.form-control {
+  width: 100%;
+  height: var(--form-control-height);
+  padding: var(--form-control-padding);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-border-control);
+  border-radius: 8px;
+}
+
+.form-submit {
+  width: var(--form-submit-width);
+  height: var(--form-submit-height);
+  align-self: var(--form-submit-align-self);
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: var(--form-submit-font-size);
+  line-height: var(--form-submit-line-height);
+  color: var(--color-white);
+}
+
+.form-text-bottom,
+.form-text-bottom a {
+  color: var(--color-text-secondary);
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+}
+
+@media screen and (min-width: 744px) {
+  :root {
+    --app-container-padding: 80px 40px 0;
+
+    --app-top-padding-y: 100px;
+
+    --app-description-margin: 100px 0 52px;
+    --app-description-font-size: 38px;
+    --app-description-line-height: 49px;
+
+    --app-bottom-copyrights-margin-top: 146px;
+    --app-bottom-container-padding-bottom: 35px;
+
+    --form-main-direction: row;
+    --form-main-justify: space-between;
+
+    --form-control-height: 100px;
+    --form-control-gap: 20px;
+    --form-control-padding: 28px 35px 26px;
+
+    --form-submit-width: 213px;
+    --form-submit-font-size: 24px;
+    --form-submit-line-height: 32px;
+
+    --form-text-bottom-flex: 0 1 45%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --app-top-padding-y: 50px;
+
+    --app-description-margin: 110px 0 52px;
+    --app-description-font-size: 54px;
+    --app-description-line-height: 70px;
+
+    --form-main-justify: start;
+
+    --form-text-bottom-flex: 1 1 auto;
+  }
 }
