@@ -1,6 +1,7 @@
 :root {
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-error: #f94a29;
   --color-bg-primary: #fbff21;
   --color-bg-secondary: #222222;
   --color-text-active: var(--color-bg-secondary);
@@ -99,6 +100,33 @@ input:-moz-placeholder {
   width: 100vw;
   min-height: 100vh;
 }
+
+.app-error,
+.app-loading {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+/* IsLoading */
+.app-loading {
+}
+/* End IsLoading */
+
+/* Apps Error */
+.app-error {
+  color: var(--color-white);
+  background-color: var(--color-error);
+}
+.app-error-message {
+  min-width: 300px;
+  padding: 24px;
+  background-color: var(--color-bg-secondary);
+  line-height: 2;
+}
+/* End Apps Error */
 
 .app-container {
   margin: 0 auto;

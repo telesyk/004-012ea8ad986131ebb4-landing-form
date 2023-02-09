@@ -1,0 +1,49 @@
+{
+  "options": [
+    {
+      "value": "full-stack developer",
+      "label": "Full-stack developer"
+    },
+    {
+      "value": "front-end developer",
+      "label": "Front-end developer"
+    },
+    {
+      "value": "back-end developer",
+      "label": "Back-end developer"
+    },
+    {
+      "value": "design role",
+      "label": "Design role"
+    },
+    {
+      "value": "product role",
+      "label": "Product role"
+    },
+    {
+      "value": "other",
+      "label": "Other"
+    }
+  ],
+  "captions": {
+    "logo": {
+      "src": "/src/assets/logotype.svg",
+      "text": "websote logotype"
+    },
+    "form": {
+      "description": "The human-first, 100% no-code API for fully managed backend services 😻",
+      "topText": "Get on our updates list",
+      "successResponse": "Done. You can unsubscribe any time via the email.",
+      "submitText": "Notify me"
+    },
+    "placeholder": {
+      "select": "Role",
+      "email": "Email"
+    },
+    "footer": {
+      "description1": "We are working to simplify building premium web, mobile and IoT apps by taking the geek speak and maintenance out of the backend services required to deliver smart and engaging applications.",
+      "description2": "By the way, this page is powered by our solution. If you are interested in a demo or would like to have a chat drop us a line at demo at includecore.com.",
+      "copyrights": "© 2023 IncludeCore. All rights reserved."
+    }
+  }
+}
