@@ -44,6 +44,10 @@
       "description1": "We are working to simplify building premium web, mobile and IoT apps by taking the geek speak and maintenance out of the backend services required to deliver smart and engaging applications.",
       "description2": "By the way, this page is powered by our solution. If you are interested in a demo or would like to have a chat drop us a line at demo at includecore.com.",
       "copyrights": "© 2023 IncludeCore. All rights reserved."
+    },
+    "error": {
+      "email": "Oops. This is not an email format",
+      "role": "Oops. This is an empty role"
     }
   }
 }

@@ -2,6 +2,7 @@
   --color-white: #ffffff;
   --color-black: #000000;
   --color-error: #f94a29;
+  --color-info: #3558ab;
   --color-bg-primary: #fbff21;
   --color-bg-secondary: #222222;
   --color-text-active: var(--color-bg-secondary);
@@ -9,6 +10,9 @@
   --color-text-placeholder: #bababa;
   --color-control-border: #e1e1e1;
   --color-control-border-focus: var(--color-bg-secondary);
+
+  --notification-color: var(--color-white);
+  --notification-bg-color: var(--color-info);
 
   --font-family-roboto: 'Roboto Mono', monospace;
 
@@ -384,6 +388,40 @@ input:-moz-placeholder {
   --form-submit-bg-color: var(--color-white);
   color: var(--color-text-active);
 }
+
+/* Notifications */
+.notification {
+  position: fixed;
+  z-index: 10;
+  top: var(--app-top-padding-y);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 24px;
+  border-radius: 10px;
+  background-color: var(--notification-bg-color);
+  color: var(--notification-color);
+  font-family: var(--font-family-roboto);
+  font-size: var(--form-text-top-font-size);
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.25);
+}
+.notification-error {
+  --notification-bg-color: var(--color-error);
+  --notification-color: var(--color-white);
+}
+.notification-close {
+  --size: 32px;
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  top: calc(var(--size) / -2);
+  right: calc(var(--size) / -2);
+  border-radius: 50%;
+  border: 2px solid var(--notification-bg-color);
+  background-color: var(--notification-color);
+  color: var(--notification-bg-color);
+}
+/* End Notifications */
 
 @media screen and (min-width: 744px) {
   :root {
