@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { isMobile } from 'react-device-detect';
 import useFetch from 'react-fetch-hook';
 import { dataUrl } from './constants';
+import { checkValidation } from './helpers';
 import SelectNative from './components/SelectNative';
 import logotype from './assets/logotype.svg';
 
@@ -12,28 +13,19 @@ function App() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [emailValue, setEmailValue] = useState('');
   const [isSuccessResponse, setIsSuccessResponse] = useState(null);
+  const [classLoaded, setClassLoaded] = useState('');
 
   const { isLoading, data, error } = useFetch(dataUrl);
 
-  // eslint-disable-next-line no-unused-vars
-  const checkValidation = data => {
-    /**
-     * Check data for validation
-     *
-     * return Boolean
-     *
-     * write [code] here
-     */
-  };
-
   const handleFormSubmit = event => {
     event.preventDefault();
+    const isValidData = checkValidation([emailValue, selectedOption?.value]);
 
-    if (emailValue !== '' && selectedOption) {
+    if (isValidData) {
       /**
        * Send data to server
        *
-       * add [code] here
+       * add [code] down here
        */
 
       setIsSuccessResponse(prev => !prev);
@@ -49,31 +41,36 @@ function App() {
   };
 
   const renderLoading = () => (
-    <div className="app-top">
-      <div className="app-loading">
-        <p>The data is loading...</p>
-      </div>
+    <div className="app-loading">
+      <p>The data is loading...</p>
     </div>
   );
 
   const renderError = err => (
-    <div className="app-top">
-      <div className="app-error">
-        <p className="app-error-title">
-          <strong>There is an error:</strong>
-        </p>
-        <pre className="app-error-message">
-          <code>{err}</code>
-        </pre>
-      </div>
+    <div className="app-error">
+      <p className="app-error-title">
+        <strong>There is an error:</strong>
+      </p>
+      <pre className="app-error-message">
+        <code>{err}</code>
+      </pre>
     </div>
   );
 
-  const renderContent = allData => {
+  const renderContent = (allData, isLoaded) => {
     const { options, captions } = allData;
+    let delay;
+    clearTimeout(delay);
+
+    if (isLoaded) {
+      delay = setTimeout(() => {
+        setClassLoaded('is-loaded');
+      }, 500);
+    }
+
     return (
       <>
-        <div className="app-top">
+        <div className={`app-top ${classLoaded}`}>
           <div className="app-container">
             <div className="app-logotype">
               <img src={logotype} alt={captions.logo.text} />
@@ -155,7 +152,7 @@ function App() {
             )}
           </div>
         </div>
-        <div className="app-bottom">
+        <div className={`app-bottom ${classLoaded}`}>
           <div className="app-container">
             <div className="app-bottom-description">
               <p>{captions.footer.description1}</p>
@@ -174,7 +171,7 @@ function App() {
     <div className="app">
       {isLoading && renderLoading()}
       {error && !data && renderError(error)}
-      {!error && !isLoading && renderContent(data)}
+      {!error && !isLoading && renderContent(data, !isLoading)}
     </div>
   );
 }

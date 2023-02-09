@@ -101,6 +101,7 @@ input:-moz-placeholder {
   min-height: 100vh;
 }
 
+/* IsLoading & Error */
 .app-error,
 .app-loading {
   height: 100vh;
@@ -109,15 +110,19 @@ input:-moz-placeholder {
   align-items: center;
   flex-direction: column;
   gap: 16px;
+  font-family: var(--font-family-roboto);
+  color: var(--color-white);
 }
-/* IsLoading */
+
+.app-error-title,
+.app-loading {
+  font-size: 2rem;
+}
+
 .app-loading {
 }
-/* End IsLoading */
 
-/* Apps Error */
 .app-error {
-  color: var(--color-white);
   background-color: var(--color-error);
 }
 .app-error-message {
@@ -126,12 +131,30 @@ input:-moz-placeholder {
   background-color: var(--color-bg-secondary);
   line-height: 2;
 }
-/* End Apps Error */
+/* End IsLoading & Error */
 
 .app-container {
   margin: 0 auto;
   padding: var(--app-container-padding);
 }
+
+/* Animation for loaded content */
+.app-top,
+.app-bottom {
+  --delay: 500ms;
+  opacity: 0;
+  transform: translateY(-50px) scaleZ(0.9);
+  transition-timing-function: ease-in-out;
+  transition-property: all;
+  transition-duration: var(--delay);
+  transition-delay: var(--delay);
+}
+.app-top.is-loaded,
+.app-bottom.is-loaded {
+  opacity: 1;
+  transform: translateY(0px) scaleZ(1);
+}
+/* End animation for loaded content */
 
 .app-top {
   padding-bottom: var(--app-top-padding-y);
@@ -357,7 +380,7 @@ input:-moz-placeholder {
 }
 
 .form-submit:hover,
-.form-submit:focus {
+.form-submit:active {
   --form-submit-bg-color: var(--color-white);
   color: var(--color-text-active);
 }
