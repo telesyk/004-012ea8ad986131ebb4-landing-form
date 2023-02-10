@@ -52,12 +52,12 @@
 
   --form-submit-width: 138.45px;
   --form-submit-height: var(--form-control-height);
-  --form-submit-margin-y: initial;
+  --form-submit-margin-bottom: initial;
+  --form-submit-margin-top: initial;
   --form-submit-border-color: #333333;
   --form-submit-bg-color: var(--color-bg-secondary);
   --form-submit-font-size: 18px;
   --form-submit-line-height: 24px;
-  --form-submit-align-self: end;
   --form-submit-order: initial;
 
   --form-text-top-font-size: 16px;
@@ -369,8 +369,8 @@ input:-moz-placeholder {
 .form-submit {
   width: var(--form-submit-width);
   height: var(--form-submit-height);
-  margin-bottom: var(--form-submit-margin-y);
-  align-self: var(--form-submit-align-self);
+  margin-bottom: var(--form-submit-margin-bottom);
+  margin-top: var(--form-submit-margin-top);
   order: var(--form-submit-order);
   border-radius: 50px;
   border: var(--form-control-border-width) solid var(--form-submit-border-color);
@@ -476,7 +476,8 @@ input:-moz-placeholder {
     --form-controls-flex: 0 1 785px;
 
     --form-submit-order: 2;
-    --form-submit-margin-y: var(--form-control-gap);
+    --form-submit-margin-bottom: var(--form-control-gap);
+    --form-submit-margin-top: 7.5rem;
 
     --form-text-bottom-order: 3;
     --form-text-bottom-flex: 1 1 auto;

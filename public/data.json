@@ -47,7 +47,7 @@
     },
     "error": {
       "email": "Oops. This is not an email format",
-      "role": "Oops. This is an empty role"
+      "option": "Oops. The role is empty"
     }
   }
 }

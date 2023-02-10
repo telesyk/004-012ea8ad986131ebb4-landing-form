@@ -30,6 +30,75 @@ function Content({
     }, 500);
   }
 
+  const renderFormControls = () => (
+    <>
+      <p className="app-top-description">{captions.form.description}</p>
+      <form onSubmit={handleFormSubmit} className="app-form form">
+        <p className="form-text-top">{captions.form.topText}</p>
+        <div className="form-main">
+          <div className="form-controls">
+            {isMobile ? (
+              <div className="form-control-panel form-select-native__container">
+                <SelectNative
+                  options={options}
+                  className="form-select-native"
+                  id="roleList"
+                  onChange={handleSelectChange}
+                />
+              </div>
+            ) : (
+              <div className="form-control-panel">
+                <Select
+                  className="form-select"
+                  classNamePrefix="form-select"
+                  placeholder={captions.placeholder.select}
+                  defaultValue={optionValue}
+                  onChange={handleSelectChange}
+                  options={options}
+                />
+              </div>
+            )}
+            <div className="form-control-panel">
+              <input
+                className="form-control"
+                type="email"
+                placeholder={captions.placeholder.email}
+                onChange={handleEmailChange}
+                value={emailValue}
+              />
+            </div>
+          </div>
+          <p className="form-text-bottom">
+            This form is protected by reCAPTCHA, and the Google{' '}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Privacy Policy
+            </a>{' '}
+            and{' '}
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Terms of Service
+            </a>{' '}
+            apply.
+          </p>
+          <button
+            className="form-submit"
+            type="submit"
+            onClick={handleFormSubmit}
+          >
+            {captions.form.submitText}
+          </button>
+        </div>
+      </form>
+    </>
+  );
+
   return (
     <>
       <div className={classNames('app-top', classLoaded)}>
@@ -38,73 +107,7 @@ function Content({
             <img src={logotype} alt={captions.logo.text} />
           </div>
           {!isSuccessResponse ? (
-            <>
-              <p className="app-top-description">{captions.form.description}</p>
-              <form onSubmit={handleFormSubmit} className="app-form form">
-                <p className="form-text-top">{captions.form.topText}</p>
-                <div className="form-main">
-                  <div className="form-controls">
-                    {isMobile ? (
-                      <div className="form-control-panel form-select-native__container">
-                        <SelectNative
-                          options={options}
-                          className="form-select-native"
-                          id="roleList"
-                          onChange={handleSelectChange}
-                        />
-                      </div>
-                    ) : (
-                      <div className="form-control-panel">
-                        <Select
-                          className="form-select"
-                          classNamePrefix="form-select"
-                          placeholder={captions.placeholder.select}
-                          defaultValue={optionValue}
-                          onChange={handleSelectChange}
-                          options={options}
-                        />
-                      </div>
-                    )}
-                    <div className="form-control-panel">
-                      <input
-                        className="form-control"
-                        type="email"
-                        placeholder={captions.placeholder.email}
-                        required
-                        onChange={handleEmailChange}
-                        value={emailValue}
-                      />
-                    </div>
-                  </div>
-                  <p className="form-text-bottom">
-                    This form is protected by reCAPTCHA, and the Google{' '}
-                    <a
-                      href="https://policies.google.com/privacy"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Privacy Policy
-                    </a>{' '}
-                    and{' '}
-                    <a
-                      href="https://policies.google.com/terms"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Terms of Service
-                    </a>{' '}
-                    apply.
-                  </p>
-                  <button
-                    className="form-submit"
-                    type="submit"
-                    onClick={handleFormSubmit}
-                  >
-                    {captions.form.submitText}
-                  </button>
-                </div>
-              </form>
-            </>
+            renderFormControls()
           ) : (
             <p className={classNames('app-top-description', 'is-success')}>
               {captions.form.successResponse}

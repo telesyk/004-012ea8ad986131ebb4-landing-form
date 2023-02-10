@@ -19,20 +19,33 @@ function App() {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    const isValidData = checkValidation([emailValue, selectedOption?.value]);
 
-    if (isValidData) {
+    const dataValidation = checkValidation([
+      { email: emailValue },
+      { option: selectedOption?.value },
+    ]);
+    const { captions } = data;
+
+    const dataIsValid = dataValidation.map(d => d.isValid);
+
+    if (!dataIsValid.includes(false)) {
       /**
        * Send data to server
        *
        * add [code] down here
        */
 
-      setIsSuccessResponse(prev => !prev);
-    } else {
-      setNotification(data?.captions.error.email);
-      setNotificationType('error');
+      setNotification('');
+      return setIsSuccessResponse(true);
     }
+
+    dataValidation.map(({ name, isValid }) => {
+      if (!isValid) {
+        return setNotification(captions.error[name]);
+      }
+    });
+
+    return setNotificationType('error');
   };
 
   const handleEmail = event => {
