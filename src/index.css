@@ -123,9 +123,6 @@ input:-moz-placeholder {
   font-size: 2rem;
 }
 
-.app-loading {
-}
-
 .app-error {
   background-color: var(--color-error);
 }
@@ -163,6 +160,9 @@ input:-moz-placeholder {
 .app-top {
   padding-bottom: var(--app-top-padding-y);
   background-color: var(--color-bg-primary);
+  /* fix for select-dropdown list */
+  position: relative;
+  z-index: 1;
 }
 
 .app-top-description {
