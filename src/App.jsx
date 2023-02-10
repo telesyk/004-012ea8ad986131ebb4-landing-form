@@ -39,10 +39,9 @@ function App() {
       return setIsSuccessResponse(true);
     }
 
+    // eslint-disable-next-line array-callback-return, consistent-return
     dataValidation.map(({ name, isValid }) => {
-      if (!isValid) {
-        return setNotification(captions.error[name]);
-      }
+      if (!isValid) return setNotification(captions.error[name]);
     });
 
     return setNotificationType('error');
