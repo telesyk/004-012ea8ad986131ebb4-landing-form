@@ -2,7 +2,7 @@
 const checkValidation = dataList => {
   /**
    * Check dataList for validation
-   * return Array( Object(data<string>: isValid<boolean>) )
+   * return Array( Object(name: string, isValid: boolean) )
    */
   if (!dataList || !dataList.length) return null;
 

@@ -57,13 +57,15 @@ function App() {
 
   const handleNotificationClose = () => setNotification('');
 
+  const isError = error && error.status;
+
   return (
     <div className="app">
-      {isLoading && <LoadingScreen />}
+      {isLoading && <LoadingScreen animation={false} />}
 
-      {error && !data && <ErrorScreen error={error} />}
+      {isError && !data && !isLoading && <ErrorScreen error={error} />}
 
-      {!error && !isLoading && (
+      {!isError && !isLoading && (
         <Content
           data={data}
           optionValue={selectedOption}
