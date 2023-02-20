@@ -1,9 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 const checkValidation = dataList => {
-  /**
-   * Check dataList for validation
-   * return Array( Object(name: string, isValid: boolean) )
-   */
   if (!dataList || !dataList.length) return null;
 
   const dataValid = dataList.map(data => {

@@ -1,27 +1,33 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import useFetch from 'react-fetch-hook';
-import { dataUrl } from './constants';
+import { DATA_URL, INITIAL_STATE } from './constants';
 import { checkValidation } from './helpers';
+import reducer from './reducer';
+import {
+  SET_NOTIFICATION,
+  SET_NOTIFICATION_TYPE,
+  SET_SELECTED_OPTION,
+  SET_EMAIL_VALUE,
+} from './actions';
 import ErrorScreen from './components/ErrorScreen';
 import LoadingScreen from './components/LoadingScreen';
 import Content from './components/Content';
 import Notification from './components/Notification';
 
 function App() {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [emailValue, setEmailValue] = useState('');
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const [isSuccessResponse, setIsSuccessResponse] = useState(null);
-  const [notification, setNotification] = useState('');
-  const [notificationType, setNotificationType] = useState('info');
   const [isLoadedFetch, setIsLoadedFetch] = useState(null);
 
-  const { isLoading, data, error } = useFetch(dataUrl);
+  const { notification, notificationType, selectedOption, emailValue } = state;
+
+  const { isLoading, data, error } = useFetch(DATA_URL);
   const isError = error && error.status;
 
   useEffect(() => {
     const delayContent = setInterval(
-      () => setIsLoadedFetch(!isLoading && !isError && data),
+      () => setIsLoadedFetch(Boolean(!isLoading && !isError && data)),
       1750
     );
     return () => clearInterval(delayContent);
@@ -39,27 +45,41 @@ function App() {
     const dataIsValid = dataValidation.map(d => d.isValid);
 
     if (!dataIsValid.includes(false)) {
-      setNotification('');
+      dispatch({ type: SET_NOTIFICATION, payload: { notification: '' } });
       return setIsSuccessResponse(true);
     }
 
     // eslint-disable-next-line array-callback-return, consistent-return
     dataValidation.map(({ name, isValid }) => {
-      if (!isValid) return setNotification(captions.error[name]);
+      if (!isValid)
+        dispatch({
+          type: SET_NOTIFICATION,
+          payload: { notification: captions.error[name] },
+        });
     });
 
-    return setNotificationType('error');
+    return dispatch({
+      type: SET_NOTIFICATION_TYPE,
+      payload: { notificationType: 'error' },
+    });
   };
 
   const handleEmail = event => {
-    setEmailValue(event.target.value.trim());
+    dispatch({
+      type: SET_EMAIL_VALUE,
+      payload: { emailValue: event.target.value.trim() },
+    });
   };
 
   const handleSelectChange = option => {
-    setSelectedOption(option);
+    dispatch({
+      type: SET_SELECTED_OPTION,
+      payload: { selectedOption: option },
+    });
   };
 
-  const handleNotificationClose = () => setNotification('');
+  const handleNotificationClose = () =>
+    dispatch({ type: SET_NOTIFICATION, payload: { notification: '' } });
 
   return (
     <div className="app">
@@ -70,7 +90,7 @@ function App() {
       {isLoadedFetch && (
         <Content
           data={data}
-          optionValue={selectedOption}
+          option={selectedOption}
           emailValue={emailValue}
           isSuccessResponse={isSuccessResponse}
           handleEmailChange={handleEmail}

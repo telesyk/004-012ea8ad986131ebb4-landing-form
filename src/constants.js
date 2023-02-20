@@ -1,4 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-const dataUrl = './data.json';
+const DATA_URL = './data.json';
 
-export { dataUrl };
+const INITIAL_STATE = {
+  selectedOption: null,
+  notification: '',
+  notificationType: 'info',
+  emailValue: '',
+};
+
+export { DATA_URL, INITIAL_STATE };

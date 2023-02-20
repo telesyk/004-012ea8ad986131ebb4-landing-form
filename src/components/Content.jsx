@@ -9,7 +9,7 @@ import logotype from '../assets/logotype.svg';
 
 function Content({
   data,
-  optionValue,
+  option,
   emailValue,
   isSuccessResponse,
   handleEmailChange,
@@ -49,7 +49,7 @@ function Content({
                   className="form-select"
                   classNamePrefix="form-select"
                   placeholder={captions.placeholder.select}
-                  defaultValue={optionValue}
+                  defaultValue={option}
                   onChange={handleSelectChange}
                   options={options}
                 />
@@ -128,18 +128,23 @@ function Content({
 }
 
 Content.propTypes = {
-  data: PropTypes.shape().isRequired,
   emailValue: PropTypes.string.isRequired,
-  optionValue: PropTypes.shape(),
-  isSuccessResponse: PropTypes.bool,
   handleEmailChange: PropTypes.func.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
   handleFormSubmit: PropTypes.func.isRequired,
+  isSuccessResponse: PropTypes.bool,
+  option: PropTypes.shape({}),
+  data: PropTypes.shape({
+    // eslint-disable-next-line react/forbid-prop-types
+    options: PropTypes.arrayOf(PropTypes.object),
+    captions: PropTypes.shape(),
+  }),
 };
 
 Content.defaultProps = {
   isSuccessResponse: null,
-  optionValue: null,
+  option: null,
+  data: null,
 };
 
 export default Content;
