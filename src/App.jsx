@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useFetch from 'react-fetch-hook';
 import { dataUrl } from './constants';
 import { checkValidation } from './helpers';
@@ -14,8 +14,18 @@ function App() {
   const [isSuccessResponse, setIsSuccessResponse] = useState(null);
   const [notification, setNotification] = useState('');
   const [notificationType, setNotificationType] = useState('info');
+  const [isLoadedFetch, setIsLoadedFetch] = useState(null);
 
   const { isLoading, data, error } = useFetch(dataUrl);
+  const isError = error && error.status;
+
+  useEffect(() => {
+    const delayContent = setInterval(
+      () => setIsLoadedFetch(!isLoading && !isError && data),
+      1750
+    );
+    return () => clearInterval(delayContent);
+  }, [isLoading, isError, data]);
 
   const handleFormSubmit = event => {
     event.preventDefault();
@@ -51,15 +61,13 @@ function App() {
 
   const handleNotificationClose = () => setNotification('');
 
-  const isError = error && error.status;
-
   return (
     <div className="app">
-      {isLoading && <LoadingScreen />}
+      {!isLoadedFetch && <LoadingScreen />}
 
       {isError && !data && <ErrorScreen error={error} />}
 
-      {!isError && data && !isLoading && (
+      {isLoadedFetch && (
         <Content
           data={data}
           optionValue={selectedOption}

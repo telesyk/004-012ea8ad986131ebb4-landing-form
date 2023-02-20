@@ -22,7 +22,7 @@ function Content({
   useEffect(() => {
     const delay = setTimeout(
       () => setClassWrapper(prevClass => `${prevClass} is-loaded`),
-      500
+      100
     );
     return () => clearInterval(delay);
   }, []);

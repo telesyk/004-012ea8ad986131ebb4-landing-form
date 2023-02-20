@@ -159,10 +159,16 @@ input:-moz-placeholder {
   transform: scale(5);
 }
 
+.loading-animation svg {
+  overflow: visible;
+}
+
 .loading-animation svg path:first-child {
   transform: scale(0.5);
   transform-origin: center;
   animation: pulse 2s ease-in infinite;
+  will-change: filter;
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 .loading-animation svg path + path {
