@@ -29,12 +29,6 @@ function App() {
     const dataIsValid = dataValidation.map(d => d.isValid);
 
     if (!dataIsValid.includes(false)) {
-      /**
-       * Send data to server
-       *
-       * add [code] down here
-       */
-
       setNotification('');
       return setIsSuccessResponse(true);
     }
@@ -61,17 +55,16 @@ function App() {
 
   return (
     <div className="app">
-      {isLoading && <LoadingScreen animation={false} />}
+      {isLoading && <LoadingScreen />}
 
-      {isError && !data && !isLoading && <ErrorScreen error={error} />}
+      {isError && !data && <ErrorScreen error={error} />}
 
-      {!isError && !isLoading && (
+      {!isError && data && !isLoading && (
         <Content
           data={data}
           optionValue={selectedOption}
           emailValue={emailValue}
           isSuccessResponse={isSuccessResponse}
-          isLoaded={!isLoading}
           handleEmailChange={handleEmail}
           handleFormSubmit={handleFormSubmit}
           handleSelectChange={handleSelectChange}

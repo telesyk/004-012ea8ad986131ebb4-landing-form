@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
@@ -11,24 +11,21 @@ function Content({
   data,
   optionValue,
   emailValue,
-  isLoaded,
   isSuccessResponse,
   handleEmailChange,
   handleSelectChange,
   handleFormSubmit,
 }) {
-  const [classLoaded, setClassLoaded] = useState('');
+  const [classWrapper, setClassWrapper] = useState('app-wrapper');
   const { options, captions } = data;
 
-  let delay;
-
-  clearTimeout(delay);
-
-  if (isLoaded) {
-    delay = setTimeout(() => {
-      setClassLoaded('is-loaded');
-    }, 500);
-  }
+  useEffect(() => {
+    const delay = setTimeout(
+      () => setClassWrapper(prevClass => `${prevClass} is-loaded`),
+      500
+    );
+    return () => clearInterval(delay);
+  }, []);
 
   const renderFormControls = () => (
     <>
@@ -100,8 +97,8 @@ function Content({
   );
 
   return (
-    <>
-      <div className={classNames('app-top', classLoaded)}>
+    <div className={classWrapper}>
+      <div className="app-top">
         <div className="app-container">
           <div className="app-logotype">
             <img src={logotype} alt={captions.logo.text} />
@@ -115,7 +112,7 @@ function Content({
           )}
         </div>
       </div>
-      <div className={classNames('app-bottom', classLoaded)}>
+      <div className="app-bottom">
         <div className="app-container">
           <div className="app-bottom-description">
             <p>{captions.footer.description1}</p>
@@ -126,7 +123,7 @@ function Content({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -134,7 +131,6 @@ Content.propTypes = {
   data: PropTypes.shape().isRequired,
   emailValue: PropTypes.string.isRequired,
   optionValue: PropTypes.shape(),
-  isLoaded: PropTypes.bool,
   isSuccessResponse: PropTypes.bool,
   handleEmailChange: PropTypes.func.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
@@ -142,7 +138,6 @@ Content.propTypes = {
 };
 
 Content.defaultProps = {
-  isLoaded: false,
   isSuccessResponse: null,
   optionValue: null,
 };

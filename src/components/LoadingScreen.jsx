@@ -2,10 +2,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CgSpinner } from 'react-icons/cg';
+import classNames from 'classnames';
 
-function LoadingScreen({ animation }) {
+function LoadingScreen({ animation, withBackground }) {
   return (
-    <div className="app-loading">
+    <div
+      className={classNames('app-loading', {
+        'app-loading-bg': withBackground,
+      })}
+    >
       {animation ? (
         <div className="loading-animation">
           <CgSpinner />
@@ -19,10 +24,12 @@ function LoadingScreen({ animation }) {
 
 LoadingScreen.propTypes = {
   animation: PropTypes.bool,
+  withBackground: PropTypes.bool,
 };
 
 LoadingScreen.defaultProps = {
   animation: true,
+  withBackground: false,
 };
 
 export default LoadingScreen;
